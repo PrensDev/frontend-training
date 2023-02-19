@@ -1,0 +1,36 @@
+:root {
+  --red: #991b1b;
+  --green: #166534;
+}
+
+* {
+  font-family: 'Segoe UI';
+}
+
+button {
+  border: none;
+  color: white;
+  padding: 6px 8px;
+  border-radius: 3px;
+}
+
+.btn-red {
+  background: var(--red);
+}
+
+.btn-green {
+  background: var(--green);
+}
+
+input {
+  padding: 3px 6px;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid;
+  padding: 5px;
+}

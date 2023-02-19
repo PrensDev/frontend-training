@@ -1,0 +1,146 @@
+/* Variables */
+
+:root {
+  --primary: #1d4ed8;
+  --muted: #9ca3af;
+
+  --font-mono: 'Consolas';
+  --font-headings: 'Times New Roman';
+}
+
+
+/* Defaults */
+
+* {
+  font-family: 'Segoe UI';
+  user-select: none;
+}
+
+body {
+  margin: 0;
+}
+
+ul {
+  margin-top: 3px;
+  margin-bottom: 0;
+}
+
+h1, h2, h3, p {
+  margin: 0;
+}
+
+
+/* Utilities */
+
+.text-primary {
+  color: var(--primary);
+}
+
+.text-muted {
+  color: var(--muted);
+}
+
+.fw-bold {
+  font-weight: bold;
+}
+
+
+/* Components */
+
+#name {
+  color: var(--primary);
+  font-family: var(--font-headings);
+  margin-bottom: 0;
+  font-size: 3em;
+}
+
+#role {
+  font-family: var(--font-mono);
+  font-weight: bold;
+  font-size: 1.5em;
+}
+
+#contactDetails {
+  margin: 10px 0;
+}
+
+#contactDetails > a {
+  font-family: var(--font-mono);
+  color: var(--muted);
+  text-decoration: none;
+  margin-right: 25px;
+}
+
+#contactDetails > a:hover {
+  text-decoration: underline;
+}
+
+.container {
+  padding-right: 100px;
+  padding-left: 100px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.category {
+  color: var(--primary);
+  font-family: var(--font-headings);
+  margin-bottom: 3px;
+}
+
+.category-container {
+  margin-bottom: 25px;
+  padding: 10px;
+  border-radius: 5px;
+  transition-duration: 250ms;
+}
+
+.category-container:hover {
+  background: #e2e8f0;
+}
+
+.category-group, .subcategory-group {
+  margin-bottom: 12px;
+}
+
+.subcategory {
+  margin-top: 0px;
+  margin-bottom: 2px;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.snippets {
+  color: var(--muted);
+  font-family: var(--font-mono);
+}
+
+.resume-header {
+  margin: 25px 0px;
+  display: flex;
+}
+
+.resume-body {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  column-gap: 20px;
+}
+
+.right-col {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  padding-right: 10px;
+  border-right: 1px solid lightgrey;
+}
+
+.resume-img-container {
+  margin-right: 20px;
+}
+
+.resume-img {
+  border-radius: 999px;
+  border: solid lightgrey 2px;
+  height: 100px;
+  width: 100px;
+  display: block;
+}

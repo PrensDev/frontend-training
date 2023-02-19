@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FakeBook</title>
+  <link rel="stylesheet" href="./style.css">
+
+  <script src="https://kit.fontawesome.com/9912ba67d9.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Header -->
+    <nav class="header">
+
+      <!-- Brand -->
+      <div>
+        <span class="brand">FakeBook</span>
+      </div>
+
+      <!-- Links -->
+      <div class="header-links">
+        <a class="header-link" href="#">Home</a>
+        <a class="header-link" href="#">Friends</a>
+        <button type="button" class="darkmode-toggler" id="darkmodeToggler">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+        <!-- <a href="" class="user-nav">
+          <img class="user-img mr-1" src="https://randomuser.me/api/portraits/men/55.jpg" alt="">
+        </a> -->
+      </div>
+
+    </nav>
+
+    <!-- Body -->
+    <div class="main-container">
+
+      <!-- Sidebar -->
+      <div class="main-sidebar">
+        
+        <div class="card">
+          <a href="#" class="sidebar-link">
+            <i class="fa-brands fa-facebook-messenger mr-1"></i>
+            Messenger</a>
+          <a href="#" class="sidebar-link">
+            <i class="fa-solid fa-user-group mr-1"></i>
+            Friends
+          </a>
+          <a href="#" class="sidebar-link">
+            <i class="fa-solid fa-people-group mr-1"></i>
+            Groups
+          </a>
+          <a href="#" class="sidebar-link">
+            <i class="fa-solid fa-flag"></i>
+            Pages
+          </a>
+          <a href="#" class="sidebar-link">
+            <i class="fa-solid fa-video"></i>
+            Videos
+          </a>
+          <a href="#" class="sidebar-link">
+            <i class="fa-solid fa-shop"></i>
+            Marketplace
+          </a>
+          <a href="#" class="sidebar-link">
+            <i class="fa-solid fa-clock"></i>
+            Memories
+          </a>
+        </div>
+
+      </div>
+
+      <!-- Blog Content -->
+      <div class="main-content">
+
+        <!-- Form Control Post -->
+        <form class="card flex" id="submitPost_form">
+          <input type="text" name="id" id="editId_input" style="display: none">
+          
+          <div class="grow mr-1">
+            <textarea 
+              class="form-control input-post" 
+              type="text"
+              placeholder="Type here what's on your mind!"
+              rows="3"
+              name="postContent"
+              id="postContent_input"
+            ></textarea>
+          </div>
+          <div>
+            <button type="submit" class="btn btn-success">
+              <i class="fa-solid fa-paper-plane"></i>
+            </button>
+          </div>
+        </form>
+        
+        <!-- List of posts -->
+        <div id="posts">
+
+          <div class="card text-center text-muted" style="padding: 50px 0;">
+            You don't post anything yet.
+          </div>
+
+        </div>
+
+        <div class="text-center"> 
+          <button class="btn" type="button" onclick="clearAllPosts()">Clear all posts</button>
+        </div>
+
+      </div>
+      
+    </div>
+
+    <!-- Footer -->
+    <footer></footer>
+    
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>

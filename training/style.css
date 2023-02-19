@@ -1,0 +1,93 @@
+:root {
+
+  /* Theme */
+  --primary: #E63946;
+
+  /* Utilities */
+  --border-radius: 3px;
+}
+
+* {
+  font-family: 'Segoe UI';
+  box-sizing: border-box;
+}
+
+body {
+  background: #F1FAEE;
+  margin: 0;
+  height: 100vh;
+  width: 100vw;
+}
+
+nav {
+  padding: 10px;
+  border: solid black 1px;
+  background: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Utilities */
+.text-center {
+  text-align: center;
+}
+
+/* Components */
+
+.btn {
+  padding: 8px;
+  color: #fff;
+  border: 0;
+  border-radius: var(--border-radius);
+  text-decoration: none;
+}
+
+.btn-block {
+  display: block;
+}
+
+.btn-primary {
+  background: var(--primary);
+}
+
+.centered-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-form {
+  width: 50%;
+}
+
+.form-group {
+  margin-bottom: 8px;
+}
+
+.form-group label {
+  margin-bottom: 5px;
+}
+
+.form-control {
+  border: 1px solid grey;
+  border-radius: var(--border-radius);
+  padding: 8px 12px;
+  width: 100%;
+}
+
+.required::after {
+  content: ' *';
+  color: red;
+}
+
+.
+
+h1 {  
+  text-align: center;
+  color: var(--primary);
+}
+
+label {
+  display: block;
+}
