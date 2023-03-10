@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NodeBook - Blogging Website for Programmers</title>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="./assets/css/_styles.css">
+
+  <!-- FontAwesome Icons -->
+  <script src="https://kit.fontawesome.com/9912ba67d9.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div>
+      <a href="./index.html" class="navbar-brand">NodeBook</a>
+    </div>
+
+    <div>
+      <a href="#"></a>
+      <a href="#"></a>
+      <a href="#"></a>
+
+      <a href="./create.html" class="navbar-icon navbar-icon-primary" type="button">
+        <i class="fa-regular fa-plus"></i>
+      </a>
+
+      <button class="navbar-icon" type="button" id="darkModeToggler">
+        <i class="fa-regular fa-sun"></i>
+      </button>
+
+      <button class="navbar-icon" type="button">
+        <i class="fa-regular fa-bell"></i>
+      </button>
+
+      <button class="navbar-icon" type="button">
+        <i class="fa-regular fa-user"></i>
+      </button>
+    </div>
+  </header>
+  
+  <!-- Main Body -->
+  <div class="row" id="feeds">
+
+    <!-- Left sidebar -->
+    <div class="col-3" id="leftSidebar">
+      <div class="card">
+        <div class="card-body sidebar-links">
+          <a href="#" class="sidebar-link active">
+            <div class="sidebar-icon">
+              <i class="fa-regular fa-newspaper"></i>
+            </div>
+            <div class="sidebar-text">My Feeds</div>
+          </a>
+          <a href="#" class="sidebar-link">
+            <div class="sidebar-icon">
+              <i class="fa-regular fa-bookmark"></i>
+            </div>
+            <div class="sidebar-text">Bookmarks</div>
+          </a>
+          <a href="#" class="sidebar-link">
+            <div class="sidebar-icon">
+              <i class="fa-regular fa-edit"></i>
+            </div>
+            <div class="sidebar-text">Drafts</div>
+          </a>
+          <div class="sidebar-divider"></div>
+          <a href="#" class="sidebar-link">
+            <div class="sidebar-text">About</div>
+          </a>
+          <a href="#" class="sidebar-link">
+            <div class="sidebar-text">Subscribe</div>
+          </a>
+          <a href="#" class="sidebar-link">
+            <div class="sidebar-text">Official Blog</div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="col-6" id="mainBody">
+
+      <div id="articles">
+        <div class="card">
+          <div class="card-body">
+            <div class="text-center">Loading... Please wait.</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Sample Content -->
+      <!-- <a href="#" class="card feed-card">
+        <div class="card-header border-b-0">
+          <div class="feed-author-container">
+            <div class="feed-author-img">
+              <img src="" alt="">
+            </div>
+            <div class="fedd-author-content">
+              <div class="feed-author">Jetsun Prince Torres</div>
+              <div class="feed-created">March 5, 2023</div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body py-0">
+          <div class="feed-title">How to build a website using HTML, CSS, and JavaScript</div>
+          <div class="feed-snippet">Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus, ipsam earum illum fugit qui doloribus magnam laboriosam ipsum vero, dignissimos dolore itaque aliquid in dicta!</div>
+        </div>
+        <div class="card-footer">
+          <button type="button" class="feed-btn">
+            <i class="fa-regular fa-bookmark"></i>
+          </button>
+          <button type="button" class="feed-btn">
+            <i class="fa-regular fa-heart"></i>
+          </button>
+          <button type="button" class="feed-btn">
+            <i class="fa-regular fa-comment"></i>
+          </button>
+        </div>
+      </a>
+
+      <a href="#" class="card feed-card">
+        <div class="card-header border-b-0">
+          <div class="feed-author-container">
+            <div class="feed-author-img">
+              <img src="" alt="">
+            </div>
+            <div class="fedd-author-content">
+              <div class="feed-author">Jetsun Prince Torres</div>
+              <div class="feed-created">March 5, 2023</div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body py-0">
+          <div class="feed-title">How to build a website using HTML, CSS, and JavaScript</div>
+          <div class="feed-snippet">Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus, ipsam earum illum fugit qui doloribus magnam laboriosam ipsum vero, dignissimos dolore itaque aliquid in dicta!</div>
+        </div>
+        <div class="card-footer">
+          <button type="button" class="feed-btn">
+            <i class="fa-regular fa-bookmark"></i>
+          </button>
+          <button type="button" class="feed-btn">
+            <i class="fa-regular fa-heart"></i>
+          </button>
+          <button type="button" class="feed-btn">
+            <i class="fa-regular fa-comment"></i>
+          </button>
+        </div>
+      </a>
+
+      <a href="#" class="card feed-card">
+        <div class="card-header border-b-0">
+          <div class="feed-author-container">
+            <div class="feed-author-img">
+              <img src="" alt="">
+            </div>
+            <div class="fedd-author-content">
+              <div class="feed-author">Jetsun Prince Torres</div>
+              <div class="feed-created">March 5, 2023</div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body py-0">
+          <div class="feed-title">How to build a website using HTML, CSS, and JavaScript</div>
+          <div class="feed-snippet">Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus, ipsam earum illum fugit qui doloribus magnam laboriosam ipsum vero, dignissimos dolore itaque aliquid in dicta!</div>
+        </div>
+        <div class="card-footer">
+          <button type="button" class="feed-btn">
+            <i class="fa-regular fa-bookmark"></i>
+          </button>
+          <button type="button" class="feed-btn">
+            <i class="fa-regular fa-heart"></i>
+          </button>
+          <button type="button" class="feed-btn">
+            <i class="fa-regular fa-comment"></i>
+          </button>
+        </div>
+      </a> -->
+
+    </div>
+
+    <!-- Right sidebar -->
+    <div class="col-3" id="rightSidebar">
+      <div class="card">
+        <div class="card-body"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+
+  </footer>
+  
+  <!-- Scripts -->
+  <script src="./assets/js/app.js"></script>
+  <script src="./assets/js/feeds.page.js"></script>
+</body>
+</html>
