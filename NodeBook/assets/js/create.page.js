@@ -5,7 +5,6 @@ $('#createArticle_form').addEventListener('submit', async function(e) {
   
   // Append additional data
   const additionalData = {
-    id: crypto.randomUUID(),
     user_id: '1a0f6d47-46c7-48da-a056-496de699e6ef',
     created_at: new Date(),
     updated_at: null
@@ -26,17 +25,11 @@ $('#createArticle_form').addEventListener('submit', async function(e) {
   $('#publish_btn').setAttribute('disabled', 'disabled');
   $('#publish_btn').innerText = 'Loading...';
 
-  try {
-    const response = await fetch(`${ BASE_URL_API }/articles`, {
-      method: 'POST',
-      body: JSON.stringify(data),
-      ...API_OPTIONS
-    });
-    console.log('Response:', response);
-
-    // Redirect to the home page
-    location.replace('./');
-  } catch(err) {
-    console.error('Error response:', err);
-  }
+  // Save
+  await API.post('/articles', {
+    data: data,
+    success: () => {
+      location.replace('./');
+    }
+  })
 });

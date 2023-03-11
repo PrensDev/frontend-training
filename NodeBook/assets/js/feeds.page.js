@@ -3,7 +3,7 @@ const Articles = (() => {
   // ? Private Methods
 
   const articleTemplate = article => `
-    <a href="#" class="card feed-card">
+    <a href="./article?id=${ article._id }" class="card feed-card">
       <div class="card-header border-b-0">
         <div class="feed-author-container">
           <div class="feed-author-img">
@@ -33,16 +33,12 @@ const Articles = (() => {
     </a>
   `
 
-  const getArticles = async () => {
-    let data;
-    await fetch(`${ BASE_URL_API }/articles`).then(res => data = res.json());
-    return data;
-  }
-
   const loadArticles = async () => {
-    const articles = await getArticles();
-    const compiledArticles = articles.map(article => articleTemplate(article)).join('');
-    $('#articles').innerHTML = compiledArticles;
+    API.get('/articles', {
+      success: res => {
+        $('#articles').innerHTML = res.map(article => articleTemplate(article)).join('');
+      }
+    })
   }
 
   

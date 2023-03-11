@@ -1,27 +1,6 @@
-/**
- * * Constants
- */
-
-const API_TOKEN = 'e3ea30f1ee634a808475b9c40a1cc764';
-const BASE_URL_API = `https://crudcrud.com/api/${ API_TOKEN }`;
-const API_OPTIONS = {
-  headers: {
-    "Accept": "application/json",
-    "Content-Type": "application/json"
-  }
-}
-
-
-/**
- * * Functions
- */
+// * Global Functions
 
 const $ = selector => document.querySelector(selector);
-
-
-/**
- * * Functions
- */
 
 const formDataToJSON = fd => Object.fromEntries(fd.entries());
 
@@ -38,22 +17,80 @@ const validateDataObj = obj => {
   return;
 }
 
+// * API Requester
+const API = (() => {
+
+  // ? Properties
+
+  let _baseURL;
+  let _options;
+  let _initialized = false;
 
 
-/**
- * * Dark Mode Toggler
- */
+  // ? Private functions
+
+  const sendRequest = async (url, { 
+    method = 'GET', 
+    data, 
+    success, 
+    error
+  }) => {
+    fetch(_baseURL + url, {
+      ..._options, 
+      method: method, 
+      body: data ? JSON.stringify(data) : null 
+    })
+      .then(res => res.json())
+      .then(res => success(res))
+      .catch(err => error ? error(err) : console.error(err))
+  }
+
+
+  // ? Public functions
+
+  const init = ({ baseURL, options }) => {
+
+    // Check if API has already been initialized
+    if (_initialized) {
+      console.warn('API has already been initialized');
+      return;
+    }
+
+    // Set the baseURL and API options
+    _baseURL = baseURL;
+    _options = options;
+    
+    // Set this method as initialized
+    _initialized = true;
+  }
+
+  const get = async (url, options) => sendRequest(url, {...options});
+
+  const post = async (url, options) => sendRequest(url, { ...options, method: 'POST' });
+
+  const put = async (url, options) => sendRequest(url, { ...options, method: 'PUT' });
+
+  const del = async (url, options) => sendRequest(url, { ...options, method: 'DELETE' });
+
+
+  // ? Return Public Functions
+
+  return { init, get, post, put, del }
+})();
+
+
+// * Dark Mode Toggler
 const DarkModeToggler = (() => {
 
   // ? Private Variables
 
-  const MODE_KEY = 'mode';
-  const DEFAULT_MODE = 'light';
-  const MODE_SELECTOR = $('html');
+  const _MODE_KEY = 'mode';
+  const _DEFAULT_MODE = 'light';
+  const _MODE_SELECTOR = $('html');
 
-  let initialized = false;
-  let toggler;
-  let currentMode;
+  let _initialized = false;
+  let _toggler;
+  let _currentMode;
 
 
   // ? Private Methods
@@ -61,19 +98,19 @@ const DarkModeToggler = (() => {
   const setMode = () => {
 
     // Check if mode has not been set on localstorage
-    if (!currentMode) {
-      localStorage.setItem('mode', DEFAULT_MODE);
-      currentMode = DEFAULT_MODE;
+    if (!_currentMode) {
+      localStorage.setItem('mode', _DEFAULT_MODE);
+      _currentMode = _DEFAULT_MODE;
       return;
     }
 
     // Set the mode of the app
-    currentMode === 'dark' ? MODE_SELECTOR.classList.add('dark') : MODE_SELECTOR.classList.remove('dark');
+    _currentMode === 'dark' ? _MODE_SELECTOR.classList.add('dark') : _MODE_SELECTOR.classList.remove('dark');
   }
 
   const toggleMode = () => {
-    currentMode = currentMode === 'dark' ? 'light' : 'dark';
-    localStorage.setItem(MODE_KEY, currentMode);
+    _currentMode = _currentMode === 'dark' ? 'light' : 'dark';
+    localStorage.setItem(_MODE_KEY, _currentMode);
     setMode();
   }
   
@@ -86,31 +123,31 @@ const DarkModeToggler = (() => {
   }) => {
 
     // Check if DarkModeToggler has already been initialized
-    if (initialized) {
+    if (_initialized) {
       console.warn('DarkModeToggler has been already initialized');
       return;
     }
 
     // Get the current mode from the localstorage
-    currentMode = localStorage.getItem(MODE_KEY);
+    _currentMode = localStorage.getItem(_MODE_KEY);
 
     // Set the mode of the app
     setMode();
 
     // Set the toggler button
-    toggler = $(selector);
+    _toggler = $(selector);
 
     // Add on click event to the toggler
-    toggler.addEventListener('click', () => {
+    _toggler.addEventListener('click', () => {
       toggleMode();
-      onSelectorClick(toggler, currentMode);
+      onSelectorClick(_toggler, _currentMode);
     });
 
     // Invoke the onInit
-    onInit(toggler, currentMode);
+    onInit(_toggler, _currentMode);
 
     // Set that the DarkModeToggler has been initialized
-    initialized = true;
+    _initialized = true;
   }
 
   
@@ -120,14 +157,10 @@ const DarkModeToggler = (() => {
 })();
 
 
-
-/**
- * * Initialize on page load
- */
-
+// * Initialize global functions
 (() => {
 
-  // Initialize dark mode toggler
+  // ? Initialize dark mode toggler
   const changeDarkModeTogglerIcon = (toggler, currentMode) =>   
     toggler.innerHTML = `<i class="fa-regular fa-${ currentMode === 'dark' ? 'sun' : 'moon' }"></i>`;
 
@@ -136,13 +169,17 @@ const DarkModeToggler = (() => {
     onSelectorClick: changeDarkModeTogglerIcon,
   });
 
+
+  // ? Initialize API Requester
+  const API_TOKEN = '708a45d72df84828af9a700a2f803948';
+  
+  API.init({
+    baseURL: `https://crudcrud.com/api/${ API_TOKEN }`,
+    options: {
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      }
+    }
+  })
 })();
-
-
-
-
-const myObj = {
-  name: 'Jayson'
-}
-
-console.log(myObj?.age);

@@ -92,29 +92,35 @@ h6 { font-size: 18px; }
 /*** ===================== GRID SYSTEM ===================== ***/
 
 .row {
-  display: grid;
-  grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto auto;
-  row-gap: 4px;
-  column-gap: 4px;
+  display: flex;
+  flex-wrap: wrap;
 }
 
-.row.no-gap {
-  row-gap: 0;
-  column-gap: 0;
+.col,
+.col-1,
+.col-2,
+.col-3,
+.col-4,
+.col-5,
+.col-6,
+.col-7,
+.col-8,
+.col-9,
+.col-10,
+.col-11,
+.col-12 {
+  flex-grow: 1;
+  flex-shrink: 0;
+  flex-basis: 0%;
 }
 
-.col-3 {
-  grid-column: span 3;
-}
-
-.col-4 {
-  grid-column: span 4;
-}
-
-.col-6 {
-  grid-column: span 6;
-}
-
+.col-1 { max-width: 8.333%; }
+.col-2 { max-width: 16.6667%; }
+.col-4 { max-width: 25%; }
+.col-6 { max-width: 50%; }
+.col-8 { max-width: 66.6667%; }
+.col-10 { max-width: 83.3333%; }
+.col-12 { max-width: 100%; }
 
 
 /*** ===================== COMPONENTS  ===================== ***/
@@ -405,10 +411,8 @@ input.invalid, textarea.invalid {
 /* Main Body */
 
 #feeds {
-  display: grid;
   min-height: calc(100vh - 56.67px);
   padding: 10px;
-  gap: 10px;
 }
 
 
@@ -429,11 +433,6 @@ input.invalid, textarea.invalid {
   border-left: transparent 4px solid;
   font-weight: 600;
 }
-
-/* .sidebar-links .sidebar-link:first-child {
-  border-top-left-radius: var(--border-radius);
-  border-top-right-radius: var(--border-radius);
-} */
 
 .sidebar-link.active, .dark .sidebar-link.active {
   border-left: var(--primary) solid 4px;
@@ -470,6 +469,11 @@ input.invalid, textarea.invalid {
   margin-bottom: 7px;
 }
 
+.dark .sidebar-links .sidebar-divider {
+  border-bottom: solid 1px var(--gray-dark);
+}
+
+
 
 /*** ===================== UTILITIES ===================== ***/
 
@@ -496,6 +500,11 @@ input.invalid, textarea.invalid {
 }
 
 .mr-2 {
+  margin-right: 4px;
+}
+
+.mx-2 {
+  margin-left: 4px;
   margin-right: 4px;
 }
 
@@ -549,15 +558,13 @@ input.invalid, textarea.invalid {
 
 /*** PAGES ***/
 
-/* Feeds */
-
+/* Main Body */
 #mainBody {
-  width: 820px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
-/* #leftSidebar {
-  position: sticky;
-} */
+/* Feeds */
 
 .feed-title {
   font-size: 26px;
