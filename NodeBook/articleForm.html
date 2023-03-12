@@ -84,39 +84,52 @@
     <!-- Content -->
     <div class="col-10" id="content">
       
-      <form class="card" id="articleForm">
-        <div class="card-body">
-
-          <input 
-            type="text" 
-            class="article-title-input" 
-            placeholder="Article title"
-            name="title"
-            id="title_input"
-            autofocus
-          >
-
-          <div class="ml-10 text-muted">Author: Jetsun Prince Torres</div>
-
-          <textarea 
-            rows="10" 
-            placeholder="Type anything here..."
-            class="article-content-input"
-            name="content"
-            id="content_input"
-          ></textarea>
-          
-        </div>
-        <div class="card-footer flex justify-between">
+      <!-- Loader -->
+      <div class="card" id="formLoader">
+        <div class="card-body loader-container">
           <div>
-            <button class="btn btn-default" type="button" onclick="history.back()" value="draft">Cancel</button>
+            <i class="fa-solid fa-spinner fa-spin-pulse fa-3x loader-spinner"></i>
+            <div class="loader-text">Loading... Please wait.</div>
           </div>
-          <div>
-            <button class="btn btn-default" type="type" value="draft">Save as draft</button>
-            <button class="btn btn-primary" type="submit" id="publish_btn" value="publish">
-              <span>Publish</span>
-              <i class="fa-solid fa-check ml-2"></i>
-            </button>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <form id="articleForm" style="display: none">
+        <div class="card">
+          <div class="card-body">
+  
+            <input 
+              type="text" 
+              class="article-title-input" 
+              placeholder="Article title"
+              name="title"
+              id="title_input"
+              autofocus
+            >
+  
+            <div class="ml-10 text-muted">Author: Jetsun Prince Torres</div>
+  
+            <textarea 
+              rows="10" 
+              placeholder="Type anything here..."
+              class="article-content-input"
+              name="content"
+              id="content_input"
+            ></textarea>
+            
+          </div>
+          <div class="card-footer flex justify-between">
+            <div>
+              <button class="btn btn-default" type="button" onclick="history.back()" value="draft">Cancel</button>
+            </div>
+            <div>
+              <button class="btn btn-default" type="type" value="draft">Save as draft</button>
+              <button class="btn btn-primary" type="submit" id="publish_btn" value="publish">
+                <span>Publish</span>
+                <i class="fa-solid fa-check ml-2"></i>
+              </button>
+            </div>
           </div>
         </div>
       </form>

@@ -2,8 +2,8 @@ const Articles = (() => {
   
   // ? Private Methods
 
-  const articleTemplate = article => `
-    <a href="./article?id=${ article._id }" class="card feed-card">
+  const articleTemplate = ({ _id, title, content }) => `
+    <a href="./article?id=${ _id }" class="card feed-card">
       <div class="card-header border-b-0">
         <div class="feed-author-container">
           <div class="feed-author-img">
@@ -16,8 +16,8 @@ const Articles = (() => {
         </div>
       </div>
       <div class="card-body py-0">
-        <div class="feed-title">${ article.title }</div>
-        <div class="feed-snippet">${ article.content }</div>
+        <div class="feed-title">${ title }</div>
+        <div class="feed-snippet">${ content.length >= 100 ? content.substring(0, 97) + '...' : content }</div>
       </div>
       <div class="card-footer flex align-center justify-between">
         <div>

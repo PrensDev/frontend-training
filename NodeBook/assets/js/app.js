@@ -56,7 +56,7 @@ const API = (() => {
     success, 
     error
   }) => {
-    fetch(_baseURL + url, {
+    await fetch(_baseURL + url, {
       ..._options, 
       method: method, 
       body: data && typeof data === 'object' ? JSON.stringify(data) : null 

@@ -12,11 +12,12 @@ const ArticleForm = (() => {
   const initEdit = async () => {
     await API.get(`/articles/${ id }`, {
       success: res => {
-        console.log(res);
-
         const { title, content } = res;
+        
+        // Store the old data for reference
         _oldData = res;
 
+        // Populate the inputs
         $('#title_input').value = title;
         $('#content_input').value = content;
       },
@@ -33,6 +34,7 @@ const ArticleForm = (() => {
 
     if (mode === 'edit') await initEdit();
   
+    // Handle on form submit event
     $('#articleForm').addEventListener('submit', async function(e) {
       e.preventDefault();
     
@@ -85,6 +87,10 @@ const ArticleForm = (() => {
           }
         })
     });
+
+    // Remove the loader and show the form
+    $('#formLoader').style.display = "none";
+    $('#articleForm').style.display = "block";
   }
   
   // ? Return public methods
