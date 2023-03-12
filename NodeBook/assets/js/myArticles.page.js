@@ -1,9 +1,9 @@
-const Articles = (() => {
+const MyArticles = (() => {
   
   // ? Private Methods
 
   const articleTemplate = article => `
-    <a href="./article?id=${ article._id }" class="card feed-card">
+    <div class="card feed-card">
       <div class="card-header border-b-0">
         <div class="feed-author-container">
           <div class="feed-author-img">
@@ -27,18 +27,15 @@ const Articles = (() => {
         </div>
       
         <div>
-          <button type="button" class="feed-btn">
-            <i class="fa-regular fa-bookmark"></i>
-          </button>
-          <button type="button" class="feed-btn">
-            <i class="fa-regular fa-heart"></i>
-          </button>
-          <button type="button" class="feed-btn">
-            <i class="fa-regular fa-comment"></i>
+          <a href="./articleForm.html?id=${ article._id }" type="button" class="feed-btn">
+            <i class="fa-regular fa-edit"></i>
+          </a>
+          <button type="button" class="feed-btn" onclick="MyArticles.del('${ article._id }')">
+            <i class="fa-regular fa-trash-alt"></i>
           </button>
         </div>
       </div>
-    </a>
+    </div>
   `
 
   const loadArticles = async () => {
@@ -58,15 +55,25 @@ const Articles = (() => {
   // ? Public Methods
 
   const init = () => {
-    loadArticles()
+    loadArticles();
+  }
+
+  const del = async id => {
+    await API.del(`/articles/${ id }`, {
+      success: res => {
+        console.log(res);
+        loadArticles();
+      },
+      error: err => {
+        console.error(err);
+      }
+    })
   }
 
 
   // ? Return Public Methods
   
-  return {
-    init
-  }
+  return { init, del }
 })();
 
 /**
@@ -74,5 +81,5 @@ const Articles = (() => {
  */
 
 (() => {
-  Articles.init();
+  MyArticles.init();
 })();

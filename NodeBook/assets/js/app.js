@@ -17,6 +17,27 @@ const validateDataObj = obj => {
   return;
 }
 
+// To get the paramters from URL
+const URLQueryParams = new Proxy(new URLSearchParams(window.location.search), {
+  get: (searchParams, prop) => searchParams.get(prop),
+});
+
+const errorTemplate = err => `
+  <div class="card">
+    <div class="card-body error-container">
+      <div>
+        <i class="fa-solid fa-triangle-exclamation fa-3x text-danger"></i>
+        <div class="error-text">Oops! Something went wrong</div>
+        <div class="error-code">${ err }</div>
+
+        <div class="mt-2">
+          <button class="btn btn-default" onclick="location.reload()">Reload the page</button>
+        </div>
+      </div>
+    </div>
+  </div>
+`
+
 // * API Requester
 const API = (() => {
 
@@ -38,11 +59,14 @@ const API = (() => {
     fetch(_baseURL + url, {
       ..._options, 
       method: method, 
-      body: data ? JSON.stringify(data) : null 
+      body: data && typeof data === 'object' ? JSON.stringify(data) : null 
     })
-      .then(res => res.json())
+      .then(res => {
+        if (method === 'GET') return res.json();
+        return res;
+      })
       .then(res => success(res))
-      .catch(err => error ? error(err) : console.error(err))
+      .catch(err => error && typeof error === 'function' ? error(err) : console.error(err))
   }
 
 
@@ -171,7 +195,7 @@ const DarkModeToggler = (() => {
 
 
   // ? Initialize API Requester
-  const API_TOKEN = '708a45d72df84828af9a700a2f803948';
+  const API_TOKEN = '45222b1054dc4c25bbf09d2201ae0f1a';
   
   API.init({
     baseURL: `https://crudcrud.com/api/${ API_TOKEN }`,
