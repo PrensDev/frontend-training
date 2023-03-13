@@ -265,7 +265,7 @@ const Authentication = (() => {
 
 
   // ? Initialize API Requester
-  const API_TOKEN = '41b934c624eb4a78823b34a547acff74';
+  const API_TOKEN = 'baf0f121668a4841a34a793da803e78e';
   
   API.init({
     baseURL: `https://crudcrud.com/api/${ API_TOKEN }`,

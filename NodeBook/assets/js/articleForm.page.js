@@ -53,6 +53,8 @@ const ArticleForm = (() => {
       
       // Append additional data
       const additionalData = {
+
+        // TODO: get the user id from the cookie
         user_id: '1a0f6d47-46c7-48da-a056-496de699e6ef',
         created_at: mode === 'create' ? new Date() : _oldData.created_at,
         updated_at: mode === 'edit' ? new Date() : null,

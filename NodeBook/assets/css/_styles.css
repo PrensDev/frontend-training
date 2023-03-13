@@ -20,6 +20,7 @@
   --gray-lighten: #f1f5f9;
   --gray-darken: #94a3b8;
   --gray-dark-lighten: #71717a;
+  --alert-danger: #fecdd3;
 
   /* ? Defaults */
   --body: #f1f5f9;
@@ -366,6 +367,19 @@ input.invalid, textarea.invalid {
   background: var(--card-bg-dark);
   color: var(--text-dark);
 }
+
+/* Alert */
+.alert {
+  display: block;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.alert.alert-danger {
+  background: var(--alert-danger);
+  border: solid 1px var(--danger);
+}
+
 
 
 /*** LAYOUT ***/

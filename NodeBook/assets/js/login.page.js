@@ -3,10 +3,11 @@ const Login = (() => {
   // ? Properties
 
   const _LOGIN_FORM = $('#loginForm');
+  const _ALERT_CONTAINER = $('#alertContainer');
   const _PATH = 'users';
-  const _COOKIES = document.cookie;
 
   let _initialized = false;
+  let _alertTimeout;
 
 
   // ? Private Methods
@@ -72,7 +73,22 @@ const Login = (() => {
       // Check if user is authenticated
       
       if (!loginStatus.authenticated) {
-        console.error(loginStatus.status);
+
+        // Clear if a timeout is existing
+        clearTimeout(_alertTimeout);
+        
+        // Show an alert
+        _ALERT_CONTAINER.innerHTML = `
+          <div class="alert alert-danger mb-3">
+            ${ loginStatus.status }
+          </div>
+        `
+
+        // Clear alert after 5 seconds 
+        _alertTimeout = setTimeout(() => {
+          _ALERT_CONTAINER.innerHTML = '';
+        }, 5000);
+
         return;
       }
 
