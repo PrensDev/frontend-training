@@ -163,6 +163,14 @@ const DarkModeToggler = (() => {
     // Set the toggler button
     _toggler = $(selector);
 
+    // Check if toggler exist
+    // Some pages doesnt have darkmode toggler
+    if (!_toggler) {
+      // Immediately set that the DarkModeToggler has been initialized
+      _initialized = true;
+      return;
+    }
+
     // Add on click event to the toggler
     _toggler.addEventListener('click', () => {
       toggleMode();
@@ -183,6 +191,66 @@ const DarkModeToggler = (() => {
 })();
 
 
+// * For Authentication
+const Authentication = (() => {
+
+  // ? Properties
+
+  const _COOKIES = document.cookie;
+
+  let _initialized = false;
+  
+
+  // ? Public Methods
+
+  const init = async () => {
+
+    // Check if Authentication has been initialized
+    if (_initialized) {
+      console.warn('Authentication has already been initialized');
+      return;
+    }
+
+    // Check if user has not yet logged in
+    // Redirect to login if not
+    let cookieObj = _COOKIES ? Object.fromEntries(_COOKIES.split('; ').map(cookie => cookie.split('='))) : null;
+    if (!cookieObj) location.replace('./login.html');
+
+    // Set this class as initialized
+    _initialized = true;
+  }
+
+  const logout = async () => {
+
+    // If no cookies, do nothing
+    if (!_COOKIES) return;
+
+    // Reset cookie
+    // To make sure that the cookie is remove, wrap it on a promise
+    await new Promise((resolve, reject) => {
+      document.cookie = 'username=; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+      document.cookie = 'user_id=; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+      resolve();
+    });
+
+    // Redirect to login
+    location.replace('./login.html');
+  }
+
+  const isLoggedIn = () => {
+    // Check if user has already logged in
+    // Redirect to home page
+    const cookieObj = Object.fromEntries(_COOKIES.split('; ').map(cookie => cookie.split('=')));
+    if (cookieObj.username && cookieObj.user_id) {
+      location.replace('./');
+      return;
+    }
+  }
+
+  return { init, logout, isLoggedIn }
+})();
+
+
 // * Initialize global functions
 (() => {
 
@@ -197,7 +265,7 @@ const DarkModeToggler = (() => {
 
 
   // ? Initialize API Requester
-  const API_TOKEN = 'f9175db0a72d444dbda9faa4dd5b70a7';
+  const API_TOKEN = '41b934c624eb4a78823b34a547acff74';
   
   API.init({
     baseURL: `https://crudcrud.com/api/${ API_TOKEN }`,

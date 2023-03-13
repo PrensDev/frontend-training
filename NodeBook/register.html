@@ -15,33 +15,61 @@
 <body>
   
   <div class="row w-screen h-screen align-center justify-center">
-    <div class="col-4">
+    <div class="col-5">
       <form id="registerForm">
         <div class="card">
           <div class="card-body">
+
+            <h4 class="text-center mb-3">Register here</h4>
   
             <div class="form-group">
               <label for="fullName" class="required">Your Full Name</label>
-              <input type="text" name="full_name" id="fullName" autofocus>
+              <input 
+                type="text" 
+                name="full_name" 
+                id="fullName" 
+                placeholder="ex. Juan Dela Cruz"
+                autofocus
+              >
             </div>
   
             <div class="form-group">
               <label for="username" class="required">Username</label>
-              <input type="text" name="username" id="username">
+              <input 
+                type="text" 
+                name="username" 
+                id="username"
+                placeholder="ex. juandelacruz01"
+              >
             </div>
 
             <div class="form-group">
               <label for="password" class="required">Password</label>
-              <input type="password" name="password" id="password">
+              <input 
+                type="password" 
+                name="password" 
+                id="password"
+                placeholder="********"
+              >
             </div>
 
             <div class="form-group">
               <label for="confirmPassword" class="required">Repeat Password to confirm</label>
-              <input type="password" name="confirm_password" id="confirmPassword">
+              <input 
+                type="password" 
+                name="confirm_password" 
+                id="confirmPassword"
+                placeholder="********"
+              >
             </div>
 
             <div>
-              <button type="submit" class="btn btn-primary w-full">Register</button>
+              <button type="submit" class="btn btn-primary btn-block">
+                <span>Register</span>
+                <i class="fa-solid fa-arrow-right-to-bracket ml-2"></i>
+              </button>
+
+              <a href="./login.html" type="submit" class="btn btn-default btn-block mt-2">Already had an account?</a>
             </div>
   
           </div>
@@ -53,6 +81,6 @@
 
   <!-- Scripts -->
   <script src="./assets/js/app.js"></script>
-  <script src="./assets/js/articleForm.page.js"></script>
+  <script src="./assets/js/register.page.js"></script>
 </body>
 </html>

@@ -3,6 +3,9 @@ const Articles = (() => {
   // ? Properties 
 
   const _ARTICLES = $('#articles');
+
+  let _initialized = false;
+
   
   // ? Private Methods
 
@@ -85,7 +88,21 @@ const Articles = (() => {
   // ? Public Methods
 
   const init = () => {
-    loadArticles()
+    
+    // Check authentication
+    Authentication.init();
+
+    // Check if Articles has been initialized
+    if (_initialized) {
+      console.warn('Articles has already been initialized');
+      return;
+    }
+    
+    // Get the articles
+    loadArticles();
+
+    // Set this class as initialized
+    _initialized = true;
   }
 
   const addToBookMark = async id => {

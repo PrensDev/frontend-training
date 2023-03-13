@@ -118,6 +118,7 @@ h6 { font-size: 18px; }
 .col-1 { max-width: 8.333%; }
 .col-2 { max-width: 16.6667%; }
 .col-4 { max-width: 25%; }
+.col-5 { max-width: 41.6667%; }
 .col-6 { max-width: 50%; }
 .col-8 { max-width: 66.6667%; }
 .col-10 { max-width: 83.3333%; }
@@ -139,6 +140,7 @@ h6 { font-size: 18px; }
   letter-spacing: 0.25px;
   background: transparent;
   text-decoration: none;
+  text-align: center;
 }
 
 .btn:disabled {
@@ -221,6 +223,11 @@ h6 { font-size: 18px; }
   font-size: var(--btn-font-size-lg);
   padding: var(--btn-padding-lg);
 }
+
+.btn.btn-block {
+  display: block;
+  width: 100%;
+} 
 
 
 /* Card */
@@ -374,6 +381,7 @@ input.invalid, textarea.invalid {
   border-bottom: solid 1px var(--gray);
   position: sticky;
   top: 0;
+  z-index: 999;
 }
 
 .dark .navbar {
@@ -670,11 +678,15 @@ input.invalid, textarea.invalid {
 }
 
 .mt-2 {
-  margin: 4px;
+  margin-top: 4px;
 }
 
 .mt-4 {
   margin-top: 16px;
+}
+
+.mb-3 {
+  margin-bottom: 12px;
 }
 
 .p-0 {
@@ -716,7 +728,7 @@ input.invalid, textarea.invalid {
 // Text
 
 .text-center {
-  text-align: center !important;
+  text-align: center;
 }
 
 .text-danger {
@@ -726,7 +738,6 @@ input.invalid, textarea.invalid {
 // Width and height
 
 .w-full {
-  display: block;
   width: 100% !important;
 }
 
