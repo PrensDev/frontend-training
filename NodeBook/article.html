@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Articles | NodeBook - Blogging Website for Programmers</title>
+  <title>NodeBook - Blogging Website for Programmers</title>
 
   <!-- Styles -->
   <link rel="stylesheet" href="./assets/css/_styles.css">
@@ -50,13 +50,13 @@
     <div class="col-2" id="leftSidebar">
       <div class="card">
         <div class="card-body sidebar-links">
-          <a href="./" class="sidebar-link">
+          <a href="./" class="sidebar-link active">
             <div class="sidebar-icon">
               <i class="fa-regular fa-newspaper"></i>
             </div>
             <div class="sidebar-text">My Feeds</div>
           </a>
-          <a href="./myArticles.html" class="sidebar-link active">
+          <a href="./myArticles.html" class="sidebar-link">
             <div class="sidebar-icon">
               <i class="fa-regular fa-pen-to-square"></i>
             </div>
@@ -158,22 +158,7 @@
 
     <!-- Content -->
     <div class="col-8" id="content">
-
-      <div class="card">
-        <div class="card-body header-container">
-          <h2 class="header">Articles</h2>
-          <div class="header-description">This is where your created articles are stored</div>
-
-          <div class="mt-4">
-            <a href="./articleForm.html" class="btn btn-primary">
-              <i class="fas fa-pen mr-2"></i>
-              Compose new arcticle
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <div id="articles">
+      <div id="articleContent">
 
         <!-- Loader -->
         <div class="card">
@@ -262,7 +247,7 @@
           </div>
         </div>
       </div>
-      
+
       <div class="card">
         <div class="card-body sidebar-links">
       
@@ -289,6 +274,6 @@
   
   <!-- Scripts -->
   <script src="./assets/js/app.js"></script>
-  <script src="./assets/js/myArticles.page.js"></script>
+  <script src="./assets/js/articleDetails.page.js"></script>
 </body>
 </html>

@@ -30,7 +30,7 @@ const errorTemplate = err => `
         <div class="error-text">Oops! Something went wrong</div>
         <div class="error-code">${ err }</div>
 
-        <div class="mt-2">
+        <div class="mt-4">
           <button class="btn btn-default" onclick="location.reload()">Reload the page</button>
         </div>
       </div>
@@ -94,12 +94,14 @@ const API = (() => {
 
   const put = async (url, options) => sendRequest(url, { ...options, method: 'PUT' });
 
+  const patch = async (url, options) => sendRequest(url, { ...options, method: 'PATCH' });
+
   const del = async (url, options) => sendRequest(url, { ...options, method: 'DELETE' });
 
 
   // ? Return Public Functions
 
-  return { init, get, post, put, del }
+  return { init, get, post, put, del, patch }
 })();
 
 
@@ -195,7 +197,7 @@ const DarkModeToggler = (() => {
 
 
   // ? Initialize API Requester
-  const API_TOKEN = '45222b1054dc4c25bbf09d2201ae0f1a';
+  const API_TOKEN = 'f9175db0a72d444dbda9faa4dd5b70a7';
   
   API.init({
     baseURL: `https://crudcrud.com/api/${ API_TOKEN }`,

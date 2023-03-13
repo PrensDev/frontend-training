@@ -2,15 +2,19 @@ const ArticleForm = (() => {
   
   // ? Properties
   
-  const id = URLQueryParams.id;
-  const mode = id ? 'edit' : 'create';
+  const _id = URLQueryParams.id;
+  const mode = _id ? 'edit' : 'create';
+
+  const _ARTICLE_FORM = $('#articleForm');
+
   let _oldData;
+  let _initialized = false;
 
 
   // ? Private methods
 
   const initEdit = async () => {
-    await API.get(`/articles/${ id }`, {
+    await API.get(`/articles/${ _id }`, {
       success: res => {
         const { title, content } = res;
         
@@ -32,10 +36,17 @@ const ArticleForm = (() => {
 
   const init = async () => {
 
+    // Check if ArticleForm has been initialized
+    if (_initialized) {
+      console.warn('ArticleForm has already been initialized');
+      return;
+    }
+
+    // If mode is edit, initialize the edit function
     if (mode === 'edit') await initEdit();
   
     // Handle on form submit event
-    $('#articleForm').addEventListener('submit', async function(e) {
+    _ARTICLE_FORM.addEventListener('submit', async function(e) {
       e.preventDefault();
     
       const fd = new FormData(this);
@@ -75,7 +86,7 @@ const ArticleForm = (() => {
             console.error(err)
           }
         })
-        : await API.put(`/articles/${ id }`, {
+        : await API.put(`/articles/${ _id }`, {
           data: data,
           success: () => {
             
@@ -91,6 +102,9 @@ const ArticleForm = (() => {
     // Remove the loader and show the form
     $('#formLoader').style.display = "none";
     $('#articleForm').style.display = "block";
+
+    // Set this class as initialized
+    _initialized = true;
   }
   
   // ? Return public methods

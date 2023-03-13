@@ -673,6 +673,10 @@ input.invalid, textarea.invalid {
   margin: 4px;
 }
 
+.mt-4 {
+  margin-top: 16px;
+}
+
 .p-0 {
   padding: 0;
 }
@@ -712,7 +716,7 @@ input.invalid, textarea.invalid {
 // Text
 
 .text-center {
-  text-align: center;
+  text-align: center !important;
 }
 
 .text-danger {
@@ -780,6 +784,12 @@ input.invalid, textarea.invalid {
   font-size: 26px;
   font-weight: bold;
   margin-bottom: 5px;
+  text-decoration: none;
+  color: var(--text);
+}
+
+.dark .feed-title {
+  color: var(--text-dark);
 }
 
 .feed-snippet {
@@ -886,4 +896,28 @@ input.invalid, textarea.invalid {
 .error-code {
   font-family: 'Consolas';
   margin-top: 10px;
+}
+
+
+/* No data */
+.nodata-container {
+  text-align: center;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.nodata-description {
+  color: var(--muted);
+}
+
+
+/* Article details */
+
+.article-header-info {
+  font-size: 16px;
+  color: var(--muted);
+}
+
+.article-content {
+  font-size: 16px;
 }

@@ -1,4 +1,9 @@
 const MyArticles = (() => {
+
+  // ? Properties
+
+  const _ARTICLES = $('#articles');
+
   
   // ? Private Methods
 
@@ -16,7 +21,7 @@ const MyArticles = (() => {
         </div>
       </div>
       <div class="card-body py-0">
-        <div class="feed-title">${ title }</div>
+        <a href="./article.html?id=${ _id }" class="feed-title">${ title }</a>
         <div class="feed-snippet">${ content.length >= 100 ? content.substring(0, 97) + '...' : content }</div>
       </div>
       <div class="card-footer flex align-center justify-between">
@@ -38,14 +43,36 @@ const MyArticles = (() => {
     </div>
   `
 
+  const noDataTemplate = `
+    <div class="card">
+      <div class="card-body nodata-container">
+
+        <div>
+          <img src="./assets/img/no_articles.svg" width="250" draggable="false"/>
+        </div>
+
+        <h3 class="nodata-title mt-2">No articles yet</h3>
+        <div class="nodata-description">Create your very first article now!</div>
+      </div>
+    </div>
+  `
+
   const loadArticles = async () => {
     setTimeout(() => {
       API.get('/articles', {
         success: res => {
-          $('#articles').innerHTML = res.reverse().map(article => articleTemplate(article)).join('');
+
+          // Check if response has data
+          if (res.length === 0) {
+            _ARTICLES.innerHTML = noDataTemplate;
+            return;
+          }
+
+          // Insert the articles in the page
+          _ARTICLES.innerHTML = res.reverse().map(article => articleTemplate(article)).join('');
         },
         error: err => {
-          $('#articles').innerHTML = errorTemplate(err);
+          _ARTICLES.innerHTML = errorTemplate(err);
         }
       })
     }, 3000);
