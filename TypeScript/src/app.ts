@@ -4,7 +4,7 @@ interface BookRecord {
   room: string
 }
 
-enum Months { 
+enum Months {
   January, February, March, 
   April, May, June, 
   July, August, September, 
@@ -41,9 +41,7 @@ class BookingSystem {
 
   // ? Private Methods
 
-  #generateCalendarBookings = (month?: string, year?: number) => {
-
-    let monthCalendarGrid = [];
+  #generateCalendarBookings = (month?: string, year?: number): void => {
     
     // Get the date
     let date: Date;
@@ -76,9 +74,10 @@ class BookingSystem {
     const firstDayOfMonth = new Date(dateYear, dateMonth, 1).getDay();
 
     // Temporary week
-    let weekArr = [];
+    let weekArr: Array<number> = [];
 
     // If first day is not sunday
+    // Fill leading days by 0
     if (firstDayOfMonth > 0) {
       for (let j = 0; j < firstDayOfMonth; j++) {
         weekArr.push(0);
@@ -86,6 +85,7 @@ class BookingSystem {
     }
 
     // Generate the days
+    let monthCalendarGrid = [];
     for (let i = 1; i <= daysInMonth+1; i++) {
       const day = new Date(dateYear, dateMonth, i).getDay();
       if (day === 0 || i === daysInMonth+1) {
@@ -103,6 +103,8 @@ class BookingSystem {
     ]
     monthCalendarGrid.forEach(week => {
       const weekStr = week.map(day => {
+
+        // Change 0 to spaces
         if (day === 0) return '  ';
         
         // Check if that date has been booked
@@ -140,7 +142,7 @@ class BookingSystem {
     }
 
     // Check if room is not blank
-    if (!date) {
+    if (!room) {
       console.error(`Room is required and cannot be blank.`);
       return;
     }
@@ -175,7 +177,7 @@ class BookingSystem {
     // Push the record in book records
     this.bookRecords.push({
       name: name,
-      date: date,
+      date: new Date(date).toString(),
       room: room
     });
 
@@ -184,36 +186,32 @@ class BookingSystem {
 
   getBookings(param1: string = '', param2?: string): void {
 
-    // Log Book Record Function
-    const logBookRecord = ({ name, date, room }: BookRecord): void => {
-      console.log([name, humanizedDate(date), room].join(', '));
-    }
+    // Container for filtered records
+    let bookRecords: object[];
 
     // If no parameters
     if (!param1 && !param2) {
-      const bookRecords = this.bookRecords
+
+      // Log all book records
+      bookRecords = this.bookRecords
         .sort((bookRecord1: BookRecord, bookRecord2: BookRecord): number => {
           // Sort all booking records in ascending order
           const bookRecordDate1 = new Date(bookRecord1.date);
           const bookRecordDate2 = new Date(bookRecord2.date);
           return bookRecordDate1.getTime() - bookRecordDate2.getTime();
         })
-
-      bookRecords.length ? bookRecords.forEach(logBookRecord) : console.log('No result was found');
-      return;
     }
 
     // If has param1 but no param2
     if (param1 && !param2) {
-      const bookRecords = this.bookRecords
+
+      // Filter book records by search query (param)
+      bookRecords = this.bookRecords
         .filter((bookRecord: BookRecord) => {
           return bookRecord.name === param1 
-            || bookRecord.room === param2 
+            || bookRecord.room === param1
             || new Date(bookRecord.date).getTime() === new Date(param1).getTime()
         })
-      
-        bookRecords.length ? bookRecords.forEach(logBookRecord) : console.log('No result was found');
-      return;
     }
 
     // If has param1 and param2
@@ -239,14 +237,19 @@ class BookingSystem {
       }
 
       // Filter the bookings on a given date range
-      const bookRecords = this.bookRecords
+      bookRecords = this.bookRecords
         .filter((bookRecord: BookRecord) => {
           const bookRecordDate = new Date(bookRecord.date).getTime();
           return bookRecordDate >= startDate.getTime() && bookRecordDate <= endDate.getTime()
         })
-      bookRecords.length ? bookRecords.forEach(logBookRecord) : console.log('No result was found');
-      return;
     }
+
+    // Display book record
+    bookRecords.length 
+      ? bookRecords.forEach(({ name, date, room }: BookRecord): void => {
+          console.log([name, humanizedDate(date), room].join(', '));
+        }) 
+      : console.log('No result was found');
   }
 
   displayCalendarBookings(month?: string, year?: number): void {
