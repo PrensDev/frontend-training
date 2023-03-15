@@ -72,13 +72,15 @@ const API = (() => {
 
   // ? Public functions
 
-  const init = ({ baseURL, options }) => {
+  const init = (config = {}) => {
 
     // Check if API has already been initialized
     if (_initialized) {
       console.warn('API has already been initialized');
       return;
     }
+
+    const { baseURL, options } = config;
 
     // Set the baseURL and API options
     _baseURL = baseURL;
@@ -225,12 +227,24 @@ const Authentication = (() => {
     // If no cookies, do nothing
     if (!_COOKIES) return;
 
-    // Reset cookie
-    // To make sure that the cookie is remove, wrap it on a promise
+    // Remove user cookies and session
+    // Wrapped in a promise to make sure that cookies and session are remove before
+    // redirecting to another page
     await new Promise((resolve, reject) => {
-      document.cookie = 'username=; expires=Thu, 01 Jan 1970 00:00:00 GMT';
-      document.cookie = 'user_id=; expires=Thu, 01 Jan 1970 00:00:00 GMT';
-      resolve();
+      try {
+
+        // Reset cookie
+        document.cookie = 'username=; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+        document.cookie = 'user_id=; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+
+        // Remove user session storage
+        sessionStorage.removeItem('user');
+
+        resolve();
+      } catch(err) {
+        console.error(err);
+        reject();
+      }
     });
 
     // Redirect to login

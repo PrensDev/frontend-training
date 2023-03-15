@@ -4,6 +4,8 @@ const MyArticles = (() => {
 
   const _ARTICLES = $('#articles');
 
+  let _initialized = false;
+
   
   // ? Private Methods
 
@@ -82,13 +84,28 @@ const MyArticles = (() => {
   // ? Public Methods
 
   const init = () => {
+
+    // Check if MyArticles has been initialized
+    if (_initialized) {
+      console.warn('MyArticles has already been initialized');
+      return;
+    }
+    
+    // Check authentication
+    Authentication.init();
+
+    // Load the articles
     loadArticles();
+
+    // Set this class as initialized
+    _initialized = true;
   }
 
   const del = async id => {
     await API.del(`/articles/${ id }`, {
       success: res => {
-        console.log(res);
+        
+        // Reload the articles
         loadArticles();
       },
       error: err => {
@@ -103,10 +120,4 @@ const MyArticles = (() => {
   return { init, del }
 })();
 
-/**
- * * Load on page
- */
-
-(() => {
-  MyArticles.init();
-})();
+MyArticles.init();

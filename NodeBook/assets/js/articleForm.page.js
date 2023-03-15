@@ -3,7 +3,8 @@ const ArticleForm = (() => {
   // ? Properties
   
   const _id = URLQueryParams.id;
-  const mode = _id ? 'edit' : 'create';
+  const _mode = _id ? 'edit' : 'create';
+  const _user_id = JSON.parse(sessionStorage.getItem('user')).user_id;
 
   const _ARTICLE_FORM = $('#articleForm');
 
@@ -43,7 +44,7 @@ const ArticleForm = (() => {
     }
 
     // If mode is edit, initialize the edit function
-    if (mode === 'edit') await initEdit();
+    if (_mode === 'edit') await initEdit();
   
     // Handle on form submit event
     _ARTICLE_FORM.addEventListener('submit', async function(e) {
@@ -53,11 +54,9 @@ const ArticleForm = (() => {
       
       // Append additional data
       const additionalData = {
-
-        // TODO: get the user id from the cookie
-        user_id: '1a0f6d47-46c7-48da-a056-496de699e6ef',
-        created_at: mode === 'create' ? new Date() : _oldData.created_at,
-        updated_at: mode === 'edit' ? new Date() : null,
+        user_id: _user_id,
+        created_at: _mode === 'create' ? new Date() : _oldData.created_at,
+        updated_at: _mode === 'edit' ? new Date() : null,
       }
       Object.entries(additionalData).forEach(([key, value]) => fd.append(key, value));
     
@@ -74,31 +73,34 @@ const ArticleForm = (() => {
       // Set the button to loading
       $('#publish_btn').setAttribute('disabled', 'disabled');
       $('#publish_btn').innerText = 'Loading...';
+
+      console.log('Form Data:', JSON.stringify(data, null, 2));
+      return;
     
       // Save the article in API
-      mode === 'create'
+      _mode === 'create'
         ? await API.post(`/articles`, {
-          data: data,
-          success: () => {
-      
-            // If success, redirect to home page
-            location.replace('./myArticles.html');
-          },
-          error: err => {
-            console.error(err)
-          }
+            data: data,
+            success: () => {
+        
+              // If success, redirect to home page
+              location.replace('./myArticles.html');
+            },
+            error: err => {
+              console.error(err)
+            }
         })
         : await API.put(`/articles/${ _id }`, {
-          data: data,
-          success: () => {
-            
-            // If success, redirect to home page
-            location.replace('./myArticles.html');
-          },
-          error: err => {
-            console.error(err)
-          }
-        })
+            data: data,
+            success: () => {
+              
+              // If success, redirect to home page
+              location.replace('./myArticles.html');
+            },
+            error: err => {
+              console.error(err)
+            }
+          })
     });
 
     // Remove the loader and show the form

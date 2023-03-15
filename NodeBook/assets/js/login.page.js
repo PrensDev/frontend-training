@@ -36,8 +36,9 @@ const Login = (() => {
       status: 'Authenticated',
       authenticated: true,
       user: {
-        id: user.id,
-        username: user.username
+        user_id: user.id,
+        username: user.username,
+        full_name: user.full_name,
       }
     }
   }
@@ -91,17 +92,26 @@ const Login = (() => {
 
         return;
       }
-
-      // Set cookie
-      let expires = new Date();
-      expires.setDate(expires.getDate() + 30);
-
+      
+      // Set user cookies and session
+      // Wrapped in promise to make sure cookies and session are set before redirecting to another page
       await new Promise((resolve, reject) => {
-        document.cookie = `username=${ data.username }; expires=${ expires.toUTCString() }; Secure`;
-        document.cookie = `user_id=${ data.id }; expires=${ expires.toUTCString() }; Secure`;
-        resolve();
-      });
+        try {
 
+          // Set user cookies
+          let expires = new Date();
+          expires.setDate(expires.getDate() + 30);
+          document.cookie = `username=${ data.username }; expires=${ expires.toUTCString() }; Secure`;
+          document.cookie = `user_id=${ data.id }; expires=${ expires.toUTCString() }; Secure`;
+          resolve();
+  
+          // Set user session
+          sessionStorage.setItem('user', JSON.stringify(loginStatus.user));
+        } catch(err) {
+          console.error(err);
+          reject();
+        }
+      });
 
       // Redirect to authenticated page
       location.assign('./');
