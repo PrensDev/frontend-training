@@ -1,4 +1,4 @@
-type BookRecord = {
+interface BookRecord {
   name: string,
   date: string,
   room: string
@@ -59,7 +59,7 @@ class BookingSystem {
     const dateMonth = date.getMonth(); // 0-11
 
     // Get the booking date of current month
-    let bookingDatesOfCurrentMonth: string[] = 
+    let bookingDatesOfTheMonth: string[] = 
       this.bookRecords
         .filter((bookRecord: BookRecord): Boolean => 
           new Date(bookRecord.date).getMonth() === dateMonth
@@ -95,7 +95,6 @@ class BookingSystem {
       weekArr.push(i);
     }
 
-
     // Generate the calendar grid
     let calendarGridArr: string[] = [
       `${ Months[dateMonth].padEnd(9) }       ${ dateYear }\n`,
@@ -107,7 +106,7 @@ class BookingSystem {
         if (day === 0) return '  ';
         
         // Check if that date has been booked
-        const isDateBooked = bookingDatesOfCurrentMonth.some((dateStr: string) => 
+        const isDateBooked = bookingDatesOfTheMonth.some((dateStr: string) => 
           new Date(dateStr).getTime() === new Date(dateYear, dateMonth, day).getTime()
         )
         
