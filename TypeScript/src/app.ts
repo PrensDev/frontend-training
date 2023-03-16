@@ -1,6 +1,6 @@
 interface BookRecord {
   name: string,
-  date: string,
+  date: Date,
   room: string
 }
 
@@ -13,8 +13,8 @@ enum Months {
 
 const isValidDate = (date: string): Boolean => !isNaN(new Date(date).valueOf());
 
-const humanizedDate = (date: string): string => {
-  const recordDate = new Date(date);
+const humanizedDate = (date: (Date | string)): string => {
+  const recordDate = date instanceof Date ? date : new Date(date);
   return [
     Months[recordDate.getMonth()], 
     recordDate.getDate(), 
@@ -49,21 +49,19 @@ class BookingSystem {
     if (!month && !year)
       date = new Date();
     else if (month && !year)
-      date = new Date(now.getFullYear(), Months[month as keyof typeof Months])
+      date = new Date(now.getFullYear(), Months[month as keyof typeof Months]);
     else 
-      date = new Date(year, Months[month as keyof typeof Months])
+      date = new Date(year, Months[month as keyof typeof Months]);
 
     const dateYear = date.getFullYear();
     const dateMonth = date.getMonth(); // 0-11
 
     // Get the booking date of current month
-    let bookingDatesOfTheMonth: string[] = 
+    let bookingDatesOfTheMonth: Date[] = 
       this.bookRecords
-        .filter((bookRecord: BookRecord): Boolean => 
-          new Date(bookRecord.date).getMonth() === dateMonth
-        )
-        .reduce<string[]>((dates: string[], currBook: BookRecord): string[] => 
-          [...dates, currBook.date]
+        .filter(({ date }: BookRecord): Boolean => date.getMonth() === dateMonth)
+        .reduce<Date[]>((dates: Date[], { date }: BookRecord): Date[] => 
+          [...dates, date]
           , []
         )
 
@@ -74,7 +72,7 @@ class BookingSystem {
     const firstDayOfMonth = new Date(dateYear, dateMonth, 1).getDay();
 
     // Temporary week
-    let weekArr: Array<number> = [];
+    let weekArr: number[] = [];
 
     // If first day is not sunday
     // Fill leading days by 0
@@ -108,8 +106,8 @@ class BookingSystem {
         if (day === 0) return '  ';
         
         // Check if that date has been booked
-        const isDateBooked = bookingDatesOfTheMonth.some((dateStr: string) => 
-          new Date(dateStr).getTime() === new Date(dateYear, dateMonth, day).getTime()
+        const isDateBooked = bookingDatesOfTheMonth.some((date: Date) => 
+          date.getTime() === new Date(dateYear, dateMonth, day).getTime()
         )
         
         // Mark as X instead of number if date has been booked
@@ -166,8 +164,8 @@ class BookingSystem {
     }
 
     // Check if room is already booked for a given date
-    let isRoomBoooked: Boolean = this.bookRecords.some((bookRecord: BookRecord): Boolean =>
-      bookRecord.room === room && bookDate.getTime() === new Date(bookRecord.date).getTime()
+    let isRoomBoooked: Boolean = this.bookRecords.some(({ room, date }: BookRecord): Boolean =>
+      room === room && bookDate.getTime() === date.getTime()
     )
     if (isRoomBoooked) {
       console.error(`[${ room }] is unavailable on date [${ humanizedDate(date) }] for [${ name }].`);
@@ -177,7 +175,7 @@ class BookingSystem {
     // Push the record in book records
     this.bookRecords.push({
       name: name,
-      date: new Date(date).toString(),
+      date: new Date(date),
       room: room
     });
 
@@ -192,14 +190,11 @@ class BookingSystem {
     // If no parameters
     if (!param1 && !param2) {
 
-      // Log all book records
+      // Sort all booking records in ascending order
       bookRecords = this.bookRecords
-        .sort((bookRecord1: BookRecord, bookRecord2: BookRecord): number => {
-          // Sort all booking records in ascending order
-          const bookRecordDate1 = new Date(bookRecord1.date);
-          const bookRecordDate2 = new Date(bookRecord2.date);
-          return bookRecordDate1.getTime() - bookRecordDate2.getTime();
-        })
+        .sort(({ date: date1 }: BookRecord, { date: date2 }: BookRecord): number => 
+          date1.getTime() - date2.getTime()
+        )
     }
 
     // If has param1 but no param2
@@ -207,11 +202,9 @@ class BookingSystem {
 
       // Filter book records by search query (param)
       bookRecords = this.bookRecords
-        .filter((bookRecord: BookRecord) => {
-          return bookRecord.name === param1 
-            || bookRecord.room === param1
-            || new Date(bookRecord.date).getTime() === new Date(param1).getTime()
-        })
+        .filter(({ name, room, date }: BookRecord) => 
+          name === param1  || room === param1 || date.getTime() === new Date(param1).getTime()
+        )
     }
 
     // If has param1 and param2
@@ -232,15 +225,15 @@ class BookingSystem {
 
       // Check if date range is valid
       if (startDate.getTime() > endDate.getTime()) {
-        console.error(`[${ param1 }] and [${ param2 }] is not a valid respective start and end date.`)
+        console.error(`[${ param1 }] and [${ param2 }] is not a valid respective start and end date.`);
         return;
       }
 
       // Filter the bookings on a given date range
       bookRecords = this.bookRecords
-        .filter((bookRecord: BookRecord) => {
-          const bookRecordDate = new Date(bookRecord.date).getTime();
-          return bookRecordDate >= startDate.getTime() && bookRecordDate <= endDate.getTime()
+        .filter(({ date }: BookRecord) => {
+          const bookRecordDate = date.getTime();
+          return bookRecordDate >= startDate.getTime() && bookRecordDate <= endDate.getTime();
         })
     }
 
